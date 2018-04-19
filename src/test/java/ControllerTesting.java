@@ -77,7 +77,7 @@ public class ControllerTesting {
 		mockMvc.perform(MockMvcRequestBuilders.get("/userlist"))
 		.andExpect(jsonPath("$.total").value("1"))
 		.andExpect(jsonPath("$.users[0]").value("jeff"));
-		
+		//deleting users
 		mockMvc.perform(MockMvcRequestBuilders.post("/deleteUser").param("username", "jeff"))
 		.andExpect(jsonPath("$.response").value("User Deleted"));
 		
