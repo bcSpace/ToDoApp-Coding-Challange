@@ -5,7 +5,7 @@
 
 ### GET /userlist Used for getting the list of users
 ### POST /adduser Used for adding a user, needs "username" form
-### POST /deleteUser used for deleting a user, needs "username" form
+### POST /deleteuser used for deleting a user, needs "username" form
 
 # Todo Management
 ## Manages todo addition, deletion and updating for a single user, also can show the entire list of todos for a user
