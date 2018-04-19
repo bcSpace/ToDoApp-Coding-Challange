@@ -1,4 +1,4 @@
-# ToDoApp-Coding-Challange
+# ToDoApp-Coding-Challenge
 
 # User Management 
 ## Manages user addition, deletion and showing the list of users
