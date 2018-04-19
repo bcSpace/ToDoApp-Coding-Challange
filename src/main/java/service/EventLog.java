@@ -17,8 +17,8 @@ public class EventLog {
 	private boolean logedIn = false;
 	private String accessKey = keyGen.generateKey(); 
 	
-	ArrayList<Long> logTimes = new ArrayList<Long>();
-	ArrayList<String> eventLog = new ArrayList<String>();
+	private ArrayList<Long> logTimes = new ArrayList<Long>();
+	private ArrayList<String> eventLog = new ArrayList<String>();
 	
 	public void addEvent(String s) {
 		logTimes.add(System.currentTimeMillis());

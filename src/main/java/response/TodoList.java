@@ -2,8 +2,8 @@ package response;
 
 public class TodoList {
 	
-	String[][] todoList;
-	String total;
+	private String[][] todoList;
+	private String total;
 
 	public TodoList(String[][] todoList) {
 		this.todoList = todoList;

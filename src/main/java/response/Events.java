@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Events {
 	
-	String logs[][];
+	private String logs[][];
 	
 	public Events(ArrayList<Long> times, ArrayList<String> events) {
 		logs = new String[times.size()][2]; 
