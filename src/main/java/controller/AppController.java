@@ -150,6 +150,10 @@ public class AppController {
 	
 	@RequestMapping(method = RequestMethod.PATCH, value = "/user/{username}/todo/{id}")
 	public ResponseEntity<?> modifyTodo(@PathVariable("username") String username, @PathVariable("id") int id, String title, String desc, String dueDate) {
+		if(title == null) title = "";
+		if(desc == null) desc = "";
+		if(dueDate == null) dueDate = "";
+		
 		if(!service.userExist(username)) 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("User does not exist"));
 		
