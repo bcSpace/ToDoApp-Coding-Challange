@@ -1,10 +1,10 @@
-# ToDoApp-Coding-Challange
+# ToDoApp-Coding-Challenge
 
 # User Management 
 ## Manages user addition, deletion and showing the list of users
 
-### GET /userlist Used for getting the list of users
-### POST /adduser Used for adding a user, needs "username" form
+### GET /userlist used for getting the list of users
+### POST /adduser used for adding a user, needs "username" form
 ### POST /deleteuser used for deleting a user, needs "username" form
 
 # Todo Management
