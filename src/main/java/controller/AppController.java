@@ -27,6 +27,8 @@ public class AppController {
 	@Autowired
 	EventLog log;
 	
+	
+	//Event log related 
 	@RequestMapping(method = RequestMethod.GET, value = "/events")
 	public ResponseEntity<?> getEventLog(@CookieValue(value="key", defaultValue = "01") String key) {
 		if(key == null) return ResponseEntity.status(401).body(new ErrorResponse("Invalid authentication"));
@@ -64,12 +66,10 @@ public class AppController {
 		return ResponseEntity.status(200).headers(headers).body(new SimpleResponse("Loged out"));
 	}
 	
-	@RequestMapping("/userlist")
-	public ResponseEntity<?> getUserList() {
-		log.addEvent("User list accessed");
-		UserList users = service.getUserList();
-		return ResponseEntity.ok(users);
-	}
+	//Event log end
+	
+	
+	//user Management 
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/addUser")
 	public ResponseEntity<?> addUser(String username) {
@@ -79,6 +79,13 @@ public class AppController {
 			return ResponseEntity.ok(new SimpleResponse("User Added")); 
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("User ID is already taken")); 
+	}
+	
+	@RequestMapping("/userlist")
+	public ResponseEntity<?> getUserList() {
+		log.addEvent("User list accessed");
+		UserList users = service.getUserList();
+		return ResponseEntity.ok(users);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/deleteUser")
@@ -91,6 +98,10 @@ public class AppController {
 		else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("User ID does not exist")); 
 	}
 	
+	//user management end
+	
+	//Todo related 
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/user/{username}/todolist")
 	public ResponseEntity<?> getUserTodoList(@PathVariable("username") String username) {
 		
@@ -100,6 +111,18 @@ public class AppController {
 		TodoList todoList = service.getUserTodoList(username);
 		log.addEvent("Todo list for " + username + " accessed");
 		return ResponseEntity.ok(todoList); 
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/user/{username}/todo/{id}")
+	public ResponseEntity<?> getTodo(@PathVariable("username") String username, @PathVariable("id") int id) {
+		if(!service.userExist(username)) 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("User does not exist"));
+		
+		if(!service.doesUserHaveTodo(username, id))
+			return ResponseEntity.status(404).body(new ErrorResponse("Todo ID does not exist"));
+		
+		log.addEvent("Todo for " + username + " accessed");
+		return ResponseEntity.ok(service.getUserTodo(username, id));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/user/{username}/addTodo")
@@ -124,17 +147,6 @@ public class AppController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Id does not exist"));
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/user/{username}/todo/{id}")
-	public ResponseEntity<?> getTodo(@PathVariable("username") String username, @PathVariable("id") int id) {
-		if(!service.userExist(username)) 
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("User does not exist"));
-		
-		if(!service.doesUserHaveTodo(username, id))
-			return ResponseEntity.status(404).body(new ErrorResponse("Todo ID does not exist"));
-		
-		log.addEvent("Todo for " + username + " accessed");
-		return ResponseEntity.ok(service.getUserTodo(username, id));
-	}
 	
 	@RequestMapping(method = RequestMethod.PATCH, value = "/user/{username}/todo/{id}")
 	public ResponseEntity<?> modifyTodo(@PathVariable("username") String username, @PathVariable("id") int id, String title, String desc, String dueDate) {
@@ -157,6 +169,6 @@ public class AppController {
 		return ResponseEntity.status(201).body(service.updateTodo(username, id, todo));
 	}
 	
-	
+	//Todo end
 	
 }

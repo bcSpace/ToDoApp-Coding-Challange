@@ -14,7 +14,7 @@ public class TodoService {
 	
 	private Hashtable<String, User> users = new Hashtable<String, User>();
 	
-	
+	//user
 	public UserList getUserList() {
 		return new UserList(users.keySet());
 	}
@@ -30,9 +30,15 @@ public class TodoService {
 		users.remove(username);
 		return true;
 	}
+	//user end
 	
+	//Todo
 	public TodoList getUserTodoList(String username) {
 		return users.get(username).getTodoList();
+	}
+	
+	public Todo getUserTodo(String username, int id) {
+		return users.get(username).getTodo(id);
 	}
 	
 	public void addUserTodo(String username, Todo todo) {
@@ -43,22 +49,16 @@ public class TodoService {
 		return users.get(username).deleteTodo(id);
 	}
 	
-	public boolean doesUserHaveTodo(String username, int id) {
-		return users.get(username).doesHaveTodo(id);
-	}
-	
-	public Todo getUserTodo(String username, int id) {
-		return users.get(username).getTodo(id);
-	}
-	
 	public Todo updateTodo(String username, int id, Todo todo) {
 		return users.get(username).updateTodo(id, todo);
 	}
 	
-
-	public boolean userExist(String username) {
-		return users.containsKey(username);
-	}
+	//Todo end
+	
+	//UTIL
+	public boolean doesUserHaveTodo(String username, int id) { return users.get(username).doesHaveTodo(id);}
+	public boolean userExist(String username) { return users.containsKey(username);}
+	
 	
 	public void clearUsers() {
 		users.clear();
